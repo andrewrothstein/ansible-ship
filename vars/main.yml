@@ -1,0 +1,11 @@
+---
+# vars file for ship
+ship_platform: '{{ ship_os }}_{{ ship_arch }}'
+ship_tgz: ship_{{ ship_ver }}_{{ ship_platform }}.tar.gz
+ship_url: '{{ ship_mirror }}/v{{ ship_ver }}/{{ ship_tgz }}'
+ship_checksum: '{{ ship_checksums[ship_ver][ship_platform] }}'
+ship_install_dir: '{{ ship_parent_install_dir }}/ship-{{ ship_ver }}'
+ship_install_exe: '{{ ship_install_dir }}/ship'
+ship_links:
+  - '{{ ship_parent_install_dir }}/bin/ship'
+  - '{{ ship_parent_install_dir }}/bin/ship-{{ ship_ver }}'

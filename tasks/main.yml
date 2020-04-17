@@ -1,0 +1,56 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for install
+  become: yes
+  stat:
+    path: '{{ ship_install_dir }}'
+  changed_when: False
+  register: ship_binary
+- when: not ship_binary.stat.exists
+  block:
+    - name: download...
+      become: '{{ ship_escalate }}'
+      become_user: root
+      get_url:
+        url: '{{ ship_url }}'
+        dest: /tmp/{{ ship_tgz }}
+        mode: 0644
+        checksum: '{{ ship_checksum }}'
+    - name: make install dir
+      become: '{{ ship_escalate }}'
+      become_user: root
+      file:
+        path: '{{ ship_install_dir }}'
+        state: directory
+        mode: 0755
+    - name: unarchive...
+      become: '{{ ship_escalate }}'
+      become_user: root
+      unarchive:
+        src: /tmp/{{ ship_tgz }}
+        dest: '{{ ship_install_dir }}'
+        creates: '{{ ship_install_exe }}'
+  always:
+    - name: cleanup
+      become: '{{ ship_escalate }}'
+      become_user: root
+      file:
+        path: /tmp/{{ ship_tgz }}
+        state: absent
+- name: link
+  become: '{{ ship_escalate }}'
+  become_user: root
+  with_items: '{{ ship_links }}'
+  file:
+    src: '{{ ship_install_exe }}'
+    dest: '{{ item }}'
+    state: link

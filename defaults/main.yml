@@ -1,10 +1,11 @@
 ---
 # defaults file for ship
-ship_ver: '0.53.0'
-ship_os: linux
-ship_arch: amd64
+ship_ver: 0.55.0
+ship_arch_map:
+  x86_32: 386
+  x86_64: amd64
 ship_parent_install_dir: /usr/local
-ship_escalate: True
+ship_escalate: true
 ship_mirror: https://github.com/replicatedhq/ship/releases/download
 ship_checksums:
   # https://github.com/replicatedhq/ship/releases/download/v0.53.0/ship_0.53.0_checksums.txt
@@ -21,3 +22,27 @@ ship_checksums:
     windows_386: sha256:f241f06c8e54f4cfc182a3f9a56050db7c5c13820c6355a4a6f03224c667b981
     # https://github.com/replicatedhq/ship/releases/download/v0.53.0/ship_0.53.0_windows_amd64.tar.gz
     windows_amd64: sha256:9d9d8e1a02e0c7ef1f60adb48c46f07345a7bda601d154fb59da71512d91cf12
+  # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_checksums.txt
+  0.54.0:
+    # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_darwin_amd64.tar.gz
+    darwin_amd64: sha256:6184e9058cb70b15e44c1448dff5ea2474a782ebf02db16cc35c9ad67c711ded
+    # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_linux_386.tar.gz
+    linux_386: sha256:abe83367155f128067077f8cd6ca4e15186f16aa311d789a6ca44b4500da66b2
+    # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_linux_amd64.tar.gz
+    linux_amd64: sha256:5c60736e11338031551e6609f094a745a78669e604dda3714199ab1ea33a3d0c
+    # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_windows_386.tar.gz
+    windows_386: sha256:87c42cda59e3d81528beac6ab35227685e5cf46b8fadf0552f97e29c85b133a2
+    # https://github.com/replicatedhq/ship/releases/download/v0.54.0/ship_0.54.0_windows_amd64.tar.gz
+    windows_amd64: sha256:29b87e452e9dcfa57f853e56f5b447a9ae44aa3ddb5a7b54b0194fc61c64e050
+  # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_checksums.txt
+  0.55.0:
+    # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_darwin_amd64.tar.gz
+    darwin_amd64: sha256:0bde6162d59e7928afe9e518b70f704b5224796a4ebc82a3b5b242f53f15679d
+    # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_linux_386.tar.gz
+    linux_386: sha256:a517db9ce5c6d05419bc9f6b7b6d37cf60356c1d2307906e46e1e9327de33eb4
+    # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_linux_amd64.tar.gz
+    linux_amd64: sha256:575c4b51a47c29388dc1e5cbd6cfb23f555b46a31f3817c4626e148998e7b74c
+    # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_windows_386.tar.gz
+    windows_386: sha256:bf386564b7977bc7d25d853c9a25347d0537659b7d7c69369e2819f515d85637
+    # https://github.com/replicatedhq/ship/releases/download/v0.55.0/ship_0.55.0_windows_amd64.tar.gz
+    windows_amd64: sha256:c1482225c15d4c435f7e72ba2d265f93b6b1a62ac04228704c3d47bdd55d405c

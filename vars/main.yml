@@ -1,7 +1,10 @@
 ---
 # vars file for ship
+ship_os: '{{ ansible_system | lower }}'
+ship_arch: '{{ ship_arch_map[ansible_architecture] }}'
 ship_platform: '{{ ship_os }}_{{ ship_arch }}'
 ship_tgz: ship_{{ ship_ver }}_{{ ship_platform }}.tar.gz
+ship_tmp_tgz: /tmp/{{ ship_tgz }}
 ship_url: '{{ ship_mirror }}/v{{ ship_ver }}/{{ ship_tgz }}'
 ship_checksum: '{{ ship_checksums[ship_ver][ship_platform] }}'
 ship_install_dir: '{{ ship_parent_install_dir }}/ship-{{ ship_ver }}'

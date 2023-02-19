@@ -1,4 +1,6 @@
 ---
+- include_role:
+    name: andrewrothstein.unarchive-deps
 - name: resolve platform specific vars
   include_vars: '{{ item }}'
   with_first_found:
@@ -10,43 +12,44 @@
       paths:
         - '{{ role_path }}/vars'
 - name: check for install
-  become: yes
+  become: true
   stat:
     path: '{{ ship_install_dir }}'
-  changed_when: False
+  changed_when: false
   register: ship_binary
 - when: not ship_binary.stat.exists
   block:
-    - name: download...
+    - name: downloading {{ ship_url }} to {{ ship_tmp_tgz }}
       become: '{{ ship_escalate }}'
       become_user: root
       get_url:
         url: '{{ ship_url }}'
-        dest: /tmp/{{ ship_tgz }}
+        dest: '{{ ship_tmp_tgz }}'
         mode: 0644
         checksum: '{{ ship_checksum }}'
-    - name: make install dir
+    - name: mkdir {{ ship_install_dir }}
       become: '{{ ship_escalate }}'
       become_user: root
       file:
         path: '{{ ship_install_dir }}'
         state: directory
         mode: 0755
-    - name: unarchive...
+    - name: unarchiving {{ ship_tmp_tgz }}
       become: '{{ ship_escalate }}'
       become_user: root
       unarchive:
-        src: /tmp/{{ ship_tgz }}
+        remote_src: true
+        src: '{{ ship_tmp_tgz }}'
         dest: '{{ ship_install_dir }}'
         creates: '{{ ship_install_exe }}'
   always:
-    - name: cleanup
+    - name: rm {{ ship_tmp_tgz }}
       become: '{{ ship_escalate }}'
       become_user: root
       file:
-        path: /tmp/{{ ship_tgz }}
+        path: '{{ ship_tmp_tgz }}'
         state: absent
-- name: link
+- name: link to {{ ship_install_exe }}
   become: '{{ ship_escalate }}'
   become_user: root
   with_items: '{{ ship_links }}'

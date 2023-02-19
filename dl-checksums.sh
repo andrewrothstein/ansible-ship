@@ -32,7 +32,6 @@ dl_ver() {
     printf "  # %s\n" $url
     printf "  %s:\n" $ver
 
-    dl $ver $lchecksums darwin 386
     dl $ver $lchecksums darwin amd64
     dl $ver $lchecksums linux 386
     dl $ver $lchecksums linux amd64
@@ -40,4 +39,5 @@ dl_ver() {
     dl $ver $lchecksums windows amd64
 }
 
-dl_ver ${1:-0.53.0}
+dl_ver 0.54.0
+dl_ver ${1:-0.55.0}
